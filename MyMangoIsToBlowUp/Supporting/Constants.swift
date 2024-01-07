@@ -33,6 +33,7 @@ struct K {
     
     struct Textures {
         static let BombTexture = SKTexture(imageNamed: K.Images.Bomb)
+        static let HeartTexture = SKTexture(imageNamed: K.Images.Heart)
         static let MangoTexture = SKTexture(imageNamed: K.Images.Mango)
         static let PlayerTexture = SKTexture(imageNamed: K.Images.Chomp1)
     }

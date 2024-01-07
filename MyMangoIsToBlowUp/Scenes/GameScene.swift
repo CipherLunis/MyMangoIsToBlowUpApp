@@ -14,12 +14,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var currentPlayerPosition: PlayerPositions = .middle
     
-    let player = SKSpriteNode()
-    let pointsLabel = SKLabelNode()
+    private let player = SKSpriteNode()
+    private let pointsLabel = SKLabelNode()
+    private var hearts = [SKSpriteNode]()
     
-    var spawnTimer = Timer()
+    private var spawnTimer = Timer()
     
-    var points = 0
+    private var points = 0
+    private var lives = 3
     
     private enum PlayerPositions: Int {
         case bottom = 0
@@ -68,6 +70,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func initializeGame() {
         points = 0
+        lives = 3
         
         pointsLabel.position = CGPoint(x: frame.width/8 * 7, y: frame.height/1.3)
         pointsLabel.zPosition = 3
@@ -87,6 +90,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.run(SKAction.repeatForever(SKAction.animate(with: playerFrames, timePerFrame: Constants.ChompAnimationSpeed, resize: false, restore: false)), withKey: Constants.MovingKey)
         player.zPosition = 1
         addChild(player)
+        
+        for i in 0..<3 {
+            let heartSize = CGSize(width: frame.width/16, height: frame.width/16)
+            let heartXInitialPos = frame.width/4*3
+            let heartWidthOffset = CGFloat(i)*frame.width/16.0
+            let additionalOffset = frame.width/20
+            let heartX: CGFloat = heartXInitialPos + heartWidthOffset + additionalOffset
+            let heart = createHeart(x: heartX, size: heartSize)
+            addChild(heart)
+        }
         
         spawnTimer = .scheduledTimer(timeInterval: Constants.SpawnSpeed, target: self, selector: #selector(spawnMangoOrBomb), userInfo: nil, repeats: true)
     }
@@ -114,7 +127,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let mango = SKSpriteNode(texture: K.Textures.MangoTexture)
         mango.size = CGSize(width: frame.width/10, height: frame.width/10)
         mango.position = CGPoint(x: frame.width/8 * 9, y: y)
-        mango.zPosition = 2
+        mango.zPosition = 3
         mango.physicsBody = SKPhysicsBody(texture: K.Textures.MangoTexture, size: mango.size)
         mango.physicsBody?.affectedByGravity = false
         mango.physicsBody?.categoryBitMask = ColliderTypes.mangoCategory.rawValue
@@ -127,13 +140,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let bomb = SKSpriteNode(texture: K.Textures.BombTexture)
         bomb.size = CGSize(width: frame.width/10, height: frame.width/10)
         bomb.position = CGPoint(x: frame.width/8 * 9, y: y)
-        bomb.zPosition = 2
+        bomb.zPosition = 3
         bomb.physicsBody = SKPhysicsBody(texture: K.Textures.BombTexture, size: bomb.size)
         bomb.physicsBody?.affectedByGravity = false
         bomb.physicsBody?.categoryBitMask = ColliderTypes.bombCategory.rawValue
         bomb.physicsBody?.collisionBitMask = 0
         bomb.physicsBody?.contactTestBitMask = ColliderTypes.playerCategory.rawValue
         return bomb
+    }
+    
+    private func createHeart(x: CGFloat, size: CGSize) -> SKSpriteNode {
+        let heart = SKSpriteNode(texture: K.Textures.HeartTexture)
+        heart.size = size
+        heart.position = CGPoint(x: x, y: frame.height/12)
+        heart.zPosition = 2
+        return heart
     }
     
     @objc private func spawnMangoOrBomb() {
