@@ -8,6 +8,8 @@
 import Foundation
 
 struct K {
+    static let AnimationTextureAtlas = "ChompAnimation"
+    
     struct FileTypes {
         static let mp3 = "mp3"
     }
