@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 struct K {
     static let AnimationTextureAtlas = "ChompAnimation"
@@ -28,5 +29,11 @@ struct K {
         static let FullQuote = "My Mango is to Blow Up and Then Act Like I Don't Know Nobody"
         static let Laugh = "HEHEHE"
         static let MyMango = "My Mango"
+    }
+    
+    struct Textures {
+        static let BombTexture = SKTexture(imageNamed: K.Images.Bomb)
+        static let MangoTexture = SKTexture(imageNamed: K.Images.Mango)
+        static let PlayerTexture = SKTexture(imageNamed: K.Images.Chomp1)
     }
 }
