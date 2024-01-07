@@ -5,11 +5,13 @@
 //  Created by Cipher Lunis on 1/6/24.
 //
 
+import SpriteKit
 import SwiftUI
 
 struct GameView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        SpriteView(scene: GameScene(size: UIScreen.main.bounds.size))
+            .ignoresSafeArea()
     }
 }
 

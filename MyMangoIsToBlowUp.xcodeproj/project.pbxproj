@@ -8,17 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		F82F096D2B4A45C600F2115B /* MyMangoIsToBlowUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F096C2B4A45C600F2115B /* MyMangoIsToBlowUpApp.swift */; };
-		F82F096F2B4A45C600F2115B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F096E2B4A45C600F2115B /* ContentView.swift */; };
+		F82F096F2B4A45C600F2115B /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F096E2B4A45C600F2115B /* StartView.swift */; };
 		F82F09712B4A45C700F2115B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F82F09702B4A45C700F2115B /* Assets.xcassets */; };
 		F82F09742B4A45C700F2115B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F82F09732B4A45C700F2115B /* Preview Assets.xcassets */; };
+		F82F097F2B4A5B7300F2115B /* My Mango.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F82F097B2B4A5B7200F2115B /* My Mango.mp3 */; };
+		F82F09802B4A5B7300F2115B /* My Mango is to Blow Up and Then Act Like I Don't Know Nobody.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F82F097C2B4A5B7200F2115B /* My Mango is to Blow Up and Then Act Like I Don't Know Nobody.mp3 */; };
+		F82F09812B4A5B7300F2115B /* Blow Up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F82F097D2B4A5B7200F2115B /* Blow Up.mp3 */; };
+		F82F09822B4A5B7300F2115B /* HEHEHE.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F82F097E2B4A5B7200F2115B /* HEHEHE.mp3 */; };
+		F82F09862B4A634300F2115B /* StartScreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F09852B4A634300F2115B /* StartScreenButton.swift */; };
+		F82F09882B4A66E600F2115B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F09872B4A66E600F2115B /* GameView.swift */; };
+		F82F098B2B4A683400F2115B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F098A2B4A683400F2115B /* GameScene.swift */; };
+		F82F098E2B4A6E2100F2115B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F098D2B4A6E2100F2115B /* Extension.swift */; };
+		F82F09902B4A72BC00F2115B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F098F2B4A72BC00F2115B /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F82F09692B4A45C600F2115B /* MyMangoIsToBlowUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMangoIsToBlowUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F82F096C2B4A45C600F2115B /* MyMangoIsToBlowUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMangoIsToBlowUpApp.swift; sourceTree = "<group>"; };
-		F82F096E2B4A45C600F2115B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F82F096E2B4A45C600F2115B /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		F82F09702B4A45C700F2115B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F82F09732B4A45C700F2115B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F82F097B2B4A5B7200F2115B /* My Mango.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "My Mango.mp3"; sourceTree = "<group>"; };
+		F82F097C2B4A5B7200F2115B /* My Mango is to Blow Up and Then Act Like I Don't Know Nobody.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "My Mango is to Blow Up and Then Act Like I Don't Know Nobody.mp3"; sourceTree = "<group>"; };
+		F82F097D2B4A5B7200F2115B /* Blow Up.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Blow Up.mp3"; sourceTree = "<group>"; };
+		F82F097E2B4A5B7200F2115B /* HEHEHE.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = HEHEHE.mp3; sourceTree = "<group>"; };
+		F82F09852B4A634300F2115B /* StartScreenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenButton.swift; sourceTree = "<group>"; };
+		F82F09872B4A66E600F2115B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		F82F098A2B4A683400F2115B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		F82F098D2B4A6E2100F2115B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		F82F098F2B4A72BC00F2115B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +69,10 @@
 		F82F096B2B4A45C600F2115B /* MyMangoIsToBlowUp */ = {
 			isa = PBXGroup;
 			children = (
-				F82F096C2B4A45C600F2115B /* MyMangoIsToBlowUpApp.swift */,
-				F82F096E2B4A45C600F2115B /* ContentView.swift */,
+				F82F098C2B4A6E1600F2115B /* Supporting */,
+				F82F09892B4A681600F2115B /* Scenes */,
+				F82F09832B4A5C4400F2115B /* Views */,
+				F82F097A2B4A5B5B00F2115B /* Sounds */,
 				F82F09702B4A45C700F2115B /* Assets.xcassets */,
 				F82F09722B4A45C700F2115B /* Preview Content */,
 			);
@@ -65,6 +85,45 @@
 				F82F09732B4A45C700F2115B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F82F097A2B4A5B5B00F2115B /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				F82F097D2B4A5B7200F2115B /* Blow Up.mp3 */,
+				F82F097E2B4A5B7200F2115B /* HEHEHE.mp3 */,
+				F82F097C2B4A5B7200F2115B /* My Mango is to Blow Up and Then Act Like I Don't Know Nobody.mp3 */,
+				F82F097B2B4A5B7200F2115B /* My Mango.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		F82F09832B4A5C4400F2115B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F82F09852B4A634300F2115B /* StartScreenButton.swift */,
+				F82F096C2B4A45C600F2115B /* MyMangoIsToBlowUpApp.swift */,
+				F82F096E2B4A45C600F2115B /* StartView.swift */,
+				F82F09872B4A66E600F2115B /* GameView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F82F09892B4A681600F2115B /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				F82F098A2B4A683400F2115B /* GameScene.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		F82F098C2B4A6E1600F2115B /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				F82F098D2B4A6E2100F2115B /* Extension.swift */,
+				F82F098F2B4A72BC00F2115B /* Constants.swift */,
+			);
+			path = Supporting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,8 +184,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F82F09812B4A5B7300F2115B /* Blow Up.mp3 in Resources */,
+				F82F09822B4A5B7300F2115B /* HEHEHE.mp3 in Resources */,
+				F82F09802B4A5B7300F2115B /* My Mango is to Blow Up and Then Act Like I Don't Know Nobody.mp3 in Resources */,
 				F82F09742B4A45C700F2115B /* Preview Assets.xcassets in Resources */,
 				F82F09712B4A45C700F2115B /* Assets.xcassets in Resources */,
+				F82F097F2B4A5B7300F2115B /* My Mango.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +200,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F82F096F2B4A45C600F2115B /* ContentView.swift in Sources */,
+				F82F098B2B4A683400F2115B /* GameScene.swift in Sources */,
+				F82F09862B4A634300F2115B /* StartScreenButton.swift in Sources */,
+				F82F096F2B4A45C600F2115B /* StartView.swift in Sources */,
+				F82F098E2B4A6E2100F2115B /* Extension.swift in Sources */,
+				F82F09902B4A72BC00F2115B /* Constants.swift in Sources */,
+				F82F09882B4A66E600F2115B /* GameView.swift in Sources */,
 				F82F096D2B4A45C600F2115B /* MyMangoIsToBlowUpApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,8 +341,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeLeft;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,8 +370,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeLeft;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

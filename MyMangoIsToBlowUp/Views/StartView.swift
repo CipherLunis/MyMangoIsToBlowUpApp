@@ -10,55 +10,62 @@ import SwiftUI
 struct StartView: View {
     let isIPad = UIDevice.current.userInterfaceIdiom == .pad
     
+    @State var didStartGame = false
+    
     var body: some View {
         ZStack {
-            GeometryReader { geo in
-                Image("MangoFarmBG")
-                    .resizable()
-                    .ignoresSafeArea()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: geo.size.width)
-                VStack {
-                    Spacer()
-                    HStack {
-                        Image("Chomp1")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: geo.size.width/4)
-                            .rotationEffect(Angle(degrees: -25))
+            if !didStartGame {
+                GeometryReader { geo in
+                    Image(K.Images.MangoFarmBG)
+                        .resizable()
+                        .ignoresSafeArea()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxWidth: geo.size.width, maxHeight: geo.size.height, alignment: .topLeading)
+                    VStack {
                         Spacer()
-                        Image("Chomp1")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: geo.size.width/4)
-                            .rotationEffect(Angle(degrees: 25))
+                        HStack {
+                            Image(K.Images.Chomp1)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: geo.size.width/4)
+                                .rotationEffect(Angle(degrees: -25))
+                            Spacer()
+                            Image(K.Images.Chomp1)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: geo.size.width/4)
+                                .rotationEffect(Angle(degrees: 25))
+                        }
+                        Spacer()
                     }
-                    Spacer()
-                }
-                HStack {
-                    Spacer()
                     HStack {
-                        Text("My Mango Is To Blow Up!")
-                            .font(.system(size: isIPad ? 80 : 60))
-                            .multilineTextAlignment(.center)
-                            .lineLimit(2)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .frame(width: geo.size.width/2)
-                            .background(.green)
-                            .cornerRadius(20)
-                        
+                        Spacer()
+                        HStack {
+                            Text("My Mango Is To Blow Up!")
+                                .font(.system(size: isIPad ? 80 : 60))
+                                .multilineTextAlignment(.center)
+                                .lineLimit(2)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                                .frame(width: geo.size.width/2)
+                                .background(.green)
+                                .cornerRadius(20)
+                            
+                        }
+                        Spacer()
                     }
-                    Spacer()
-                }
-                .padding(.top, 20)
-                VStack {
-                    Spacer()
-                    StartScreenButton(text: "Start!", width: geo.size.width/3.5, height: geo.size.height/6, isIPad: isIPad) {
-                        // START GAME
+                    .padding(.top, 20)
+                    VStack {
+                        Spacer()
+                        StartScreenButton(text: "Start!", width: geo.size.width/3.5, height: geo.size.height/6, isIPad: isIPad) {
+                            didStartGame = true
+                        }
+                        .padding(.bottom)
                     }
-                    .padding(.bottom)
                 }
+            } else {
+                GameView()
+                    .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.35)))
             }
         }
     }
