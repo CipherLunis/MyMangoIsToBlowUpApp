@@ -15,8 +15,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var currentPlayerPosition: PlayerPositions = .middle
     
     let player = SKSpriteNode()
+    let pointsLabel = SKLabelNode()
     
     var spawnTimer = Timer()
+    
+    var points = 0
     
     private enum PlayerPositions: Int {
         case bottom = 0
@@ -36,6 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         static let MovingKey = "Moving"
         
         static let BackgroundScrollSpeed = 50.0
+        static let ChompAnimationSpeed = 0.2
         static let MangoOrBombMoveSpeed = 7.0
         static let SpawnSpeed = 2.0
     }
@@ -63,6 +67,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func initializeGame() {
+        points = 0
+        
+        pointsLabel.position = CGPoint(x: frame.width/8 * 7, y: frame.height/1.3)
+        pointsLabel.zPosition = 3
+        pointsLabel.applyStrokedAttributes(text: "\(points)", strokeWidth: -2, strokeColor: .black, fillColor: .white, fontName: "TimesNewRomanPS-BoldMT", fontSize: 100)
+        addChild(pointsLabel)
+        
         scrollBackground(texture: SKTexture(imageNamed: K.Images.MangoFarmBG), z: 0, size: self.size, duration: Constants.BackgroundScrollSpeed)
         
         player.size = CGSize(width: frame.width/6, height: frame.width/6)
@@ -73,7 +84,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.contactTestBitMask = ColliderTypes.mangoCategory.rawValue | ColliderTypes.bombCategory.rawValue
         player.texture = K.Textures.PlayerTexture
         player.position = CGPoint(x: size.width/10, y: size.height/2)
-        player.run(SKAction.repeatForever(SKAction.animate(with: playerFrames, timePerFrame: 0.5, resize: false, restore: false)), withKey: Constants.MovingKey)
+        player.run(SKAction.repeatForever(SKAction.animate(with: playerFrames, timePerFrame: Constants.ChompAnimationSpeed, resize: false, restore: false)), withKey: Constants.MovingKey)
         player.zPosition = 1
         addChild(player)
         
@@ -101,7 +112,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func createMango(y: CGFloat) -> SKSpriteNode {
         let mango = SKSpriteNode(texture: K.Textures.MangoTexture)
-        mango.size = CGSize(width: frame.width/8, height: frame.width/8)
+        mango.size = CGSize(width: frame.width/10, height: frame.width/10)
         mango.position = CGPoint(x: frame.width/8 * 9, y: y)
         mango.zPosition = 2
         mango.physicsBody = SKPhysicsBody(texture: K.Textures.MangoTexture, size: mango.size)
@@ -114,7 +125,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func createBomb(y: CGFloat) -> SKSpriteNode {
         let bomb = SKSpriteNode(texture: K.Textures.BombTexture)
-        bomb.size = CGSize(width: frame.width/8, height: frame.width/8)
+        bomb.size = CGSize(width: frame.width/10, height: frame.width/10)
         bomb.position = CGPoint(x: frame.width/8 * 9, y: y)
         bomb.zPosition = 2
         bomb.physicsBody = SKPhysicsBody(texture: K.Textures.BombTexture, size: bomb.size)
@@ -129,11 +140,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var yPosition = 0.0
         switch Int.random(in: 1...3) {
         case 1:
-            yPosition = frame.height/2 + frame.height/4
+            yPosition = frame.height/2 + frame.height/3.5
         case 2:
             yPosition = frame.height/2
         default:
-            yPosition = frame.height/2 - frame.height/4
+            yPosition = frame.height/2 - frame.height/3.5
         }
         let movingObject = Int.random(in: 1...3) == 3 ? createBomb(y: yPosition) : createMango(y: yPosition)
         let moveRightToLeft = SKAction.moveTo(x: -movingObject.size.width, duration: Constants.MangoOrBombMoveSpeed)
@@ -151,12 +162,67 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if tapLocation.y < frame.height/2 {
             if currentPlayerPosition.rawValue < PlayerPositions.top.rawValue {
                 currentPlayerPosition = PlayerPositions(rawValue: currentPlayerPosition.rawValue + 1)!
-                player.position.y += frame.height/4
+                player.position.y += frame.height/3.5
             }
         } else {
             if currentPlayerPosition.rawValue > PlayerPositions.bottom.rawValue {
                 currentPlayerPosition = PlayerPositions(rawValue: currentPlayerPosition.rawValue - 1)!
-                player.position.y -= frame.height/4
+                player.position.y -= frame.height/3.5
+            }
+        }
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard let nodeA = contact.bodyA.node else { return }
+        guard let nodeB = contact.bodyB.node else { return }
+        
+        if nodeA == player || nodeB == player {
+            if nodeA.physicsBody?.categoryBitMask == ColliderTypes.mangoCategory.rawValue {
+                // TODO: play sound my mango or hehehe
+                points += 1
+                pointsLabel.applyStrokedAttributes(text: "\(points)", strokeWidth: -2, strokeColor: .black, fillColor: .white, fontName: "ArialRoundedMTBold", fontSize: 100)
+                nodeA.removeFromParent()
+            } else if nodeB.physicsBody?.categoryBitMask == ColliderTypes.mangoCategory.rawValue {
+                // TODO: play sound my mango or hehehe
+                points += 1
+                pointsLabel.applyStrokedAttributes(text: "\(points)", strokeWidth: -2, strokeColor: .black, fillColor: .white, fontName: "ArialRoundedMTBold", fontSize: 100)
+                nodeB.removeFromParent()
+            }
+            
+            if nodeA.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
+                // TODO: BELOW
+                // play sound blow up
+                // remove heart
+                // lives -= 1
+                // if lives = 0, gameOver()
+                let explosionParticles = SKEmitterNode(fileNamed: "SmokeParticle.sks")!
+                explosionParticles.position = CGPoint(x: nodeB.position.x, y: nodeB.position.y - nodeB.frame.height/2)
+                explosionParticles.zPosition = 4
+                explosionParticles.particlePositionRange.dx = nodeB.frame.width/1.3
+                
+                let waitAction = SKAction.wait(forDuration: 0.2)
+                let removeExplosion = SKAction.removeFromParent()
+                let explosionSequence = SKAction.sequence([waitAction, removeExplosion])
+                addChild(explosionParticles)
+                explosionParticles.run(explosionSequence)
+                nodeA.removeFromParent()
+            } else if nodeB.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
+                // TODO: BELOW
+                // play sound blow up
+                // remove heart
+                // lives -= 1
+                // if lives = 0, gameOver()
+                let explosionParticles = SKEmitterNode(fileNamed: "SmokeParticle.sks")!
+                explosionParticles.position = CGPoint(x: nodeA.position.x, y: nodeA.position.y - nodeA.frame.height/2)
+                explosionParticles.zPosition = 4
+                explosionParticles.particlePositionRange.dx = nodeA.frame.width/1.3
+                
+                let waitAction = SKAction.wait(forDuration: 0.2)
+                let removeExplosion = SKAction.removeFromParent()
+                let explosionSequence = SKAction.sequence([waitAction, removeExplosion])
+                addChild(explosionParticles)
+                explosionParticles.run(explosionSequence)
+                nodeB.removeFromParent()
             }
         }
     }

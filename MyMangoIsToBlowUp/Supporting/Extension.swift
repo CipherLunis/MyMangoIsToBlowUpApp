@@ -22,3 +22,23 @@ extension SKSpriteNode {
         }
     }
 }
+
+extension SKLabelNode {
+    func applyStrokedAttributes(text: String, strokeWidth: CGFloat, strokeColor: UIColor, fillColor: UIColor, fontName: String, fontSize: CGFloat) {
+        let attributedStringParagraphStyle = NSMutableParagraphStyle()
+        attributedStringParagraphStyle.alignment = .center
+        attributedStringParagraphStyle.lineSpacing = 10
+        
+        let attributedString = NSAttributedString(
+        string: text,
+        attributes: [
+            NSAttributedString.Key.paragraphStyle : attributedStringParagraphStyle,
+            NSAttributedString.Key.strokeWidth : strokeWidth,
+            NSAttributedString.Key.strokeColor : strokeColor,
+            NSAttributedString.Key.foregroundColor : fillColor,
+            NSAttributedString.Key.font : UIFont(name: fontName, size: fontSize)!
+        ])
+        
+        self.attributedText = attributedString
+    }
+}

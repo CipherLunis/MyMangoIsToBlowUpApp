@@ -20,6 +20,7 @@
 		F82F098B2B4A683400F2115B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F098A2B4A683400F2115B /* GameScene.swift */; };
 		F82F098E2B4A6E2100F2115B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F098D2B4A6E2100F2115B /* Extension.swift */; };
 		F82F09902B4A72BC00F2115B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F098F2B4A72BC00F2115B /* Constants.swift */; };
+		F82F09932B4A8F0100F2115B /* SmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = F82F09922B4A8F0100F2115B /* SmokeParticle.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		F82F098A2B4A683400F2115B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		F82F098D2B4A6E2100F2115B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		F82F098F2B4A72BC00F2115B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F82F09922B4A8F0100F2115B /* SmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticle.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,11 +71,11 @@
 		F82F096B2B4A45C600F2115B /* MyMangoIsToBlowUp */ = {
 			isa = PBXGroup;
 			children = (
+				F82F09912B4A8ED700F2115B /* Resources */,
 				F82F098C2B4A6E1600F2115B /* Supporting */,
 				F82F09892B4A681600F2115B /* Scenes */,
 				F82F09832B4A5C4400F2115B /* Views */,
 				F82F097A2B4A5B5B00F2115B /* Sounds */,
-				F82F09702B4A45C700F2115B /* Assets.xcassets */,
 				F82F09722B4A45C700F2115B /* Preview Content */,
 			);
 			path = MyMangoIsToBlowUp;
@@ -124,6 +126,15 @@
 				F82F098F2B4A72BC00F2115B /* Constants.swift */,
 			);
 			path = Supporting;
+			sourceTree = "<group>";
+		};
+		F82F09912B4A8ED700F2115B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F82F09702B4A45C700F2115B /* Assets.xcassets */,
+				F82F09922B4A8F0100F2115B /* SmokeParticle.sks */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +198,7 @@
 				F82F09812B4A5B7300F2115B /* Blow Up.mp3 in Resources */,
 				F82F09822B4A5B7300F2115B /* HEHEHE.mp3 in Resources */,
 				F82F09802B4A5B7300F2115B /* My Mango is to Blow Up and Then Act Like I Don't Know Nobody.mp3 in Resources */,
+				F82F09932B4A8F0100F2115B /* SmokeParticle.sks in Resources */,
 				F82F09742B4A45C700F2115B /* Preview Assets.xcassets in Resources */,
 				F82F09712B4A45C700F2115B /* Assets.xcassets in Resources */,
 				F82F097F2B4A5B7300F2115B /* My Mango.mp3 in Resources */,
