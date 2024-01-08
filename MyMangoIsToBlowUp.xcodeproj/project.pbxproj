@@ -21,6 +21,7 @@
 		F82F098E2B4A6E2100F2115B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F098D2B4A6E2100F2115B /* Extension.swift */; };
 		F82F09902B4A72BC00F2115B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F098F2B4A72BC00F2115B /* Constants.swift */; };
 		F82F09932B4A8F0100F2115B /* SmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = F82F09922B4A8F0100F2115B /* SmokeParticle.sks */; };
+		F86B52252B4BAE7800BC325E /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86B52242B4BAE7800BC325E /* GameOverView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		F82F098D2B4A6E2100F2115B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		F82F098F2B4A72BC00F2115B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F82F09922B4A8F0100F2115B /* SmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticle.sks; sourceTree = "<group>"; };
+		F86B52242B4BAE7800BC325E /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				F82F096C2B4A45C600F2115B /* MyMangoIsToBlowUpApp.swift */,
 				F82F096E2B4A45C600F2115B /* StartView.swift */,
 				F82F09872B4A66E600F2115B /* GameView.swift */,
+				F86B52242B4BAE7800BC325E /* GameOverView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 				F82F098E2B4A6E2100F2115B /* Extension.swift in Sources */,
 				F82F09902B4A72BC00F2115B /* Constants.swift in Sources */,
 				F82F09882B4A66E600F2115B /* GameView.swift in Sources */,
+				F86B52252B4BAE7800BC325E /* GameOverView.swift in Sources */,
 				F82F096D2B4A45C600F2115B /* MyMangoIsToBlowUpApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

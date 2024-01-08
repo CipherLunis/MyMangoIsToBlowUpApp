@@ -9,9 +9,22 @@ import SpriteKit
 import SwiftUI
 
 struct GameView: View {
+    
+    @StateObject var gameScene = GameScene(size: UIScreen.main.bounds.size)
+    
     var body: some View {
-        SpriteView(scene: GameScene(size: UIScreen.main.bounds.size))
-            .ignoresSafeArea()
+        ZStack {
+            SpriteView(scene: gameScene)
+                .ignoresSafeArea()
+            Rectangle()
+                .fill(.black)
+                .ignoresSafeArea()
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .opacity(gameScene.isGameOver ? 0.5 : 0.0)
+            if gameScene.isGameOver {
+                GameOverView(score: gameScene.points)
+            }
+        }
     }
 }
 

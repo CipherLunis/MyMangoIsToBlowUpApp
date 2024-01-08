@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     private var playerFrames = [SKTexture]()
     
@@ -20,8 +20,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var spawnTimer = Timer()
     
-    private var points = 0
+   
     private var lives = 3
+    
+    @Published var points = 0
+    @Published var isGameOver = false
     
     private enum PlayerPositions: Int {
         case bottom = 0
@@ -42,8 +45,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         static let BackgroundScrollSpeed = 50.0
         static let ChompAnimationSpeed = 0.2
-        static let MangoOrBombMoveSpeed = 7.0
-        static let SpawnSpeed = 2.0
+//        static let MangoOrBombMoveSpeed = 7.0
+//        static let SpawnSpeed = 2.0
+        static let MangoOrBombMoveSpeed = 1.0
+        static let SpawnSpeed = 0.2
     }
     
     override init(size: CGSize) {
@@ -71,6 +76,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func initializeGame() {
         points = 0
         lives = 3
+        isGameOver = false
         
         pointsLabel.position = CGPoint(x: frame.width/8 * 7, y: frame.height/1.3)
         pointsLabel.zPosition = 3
@@ -99,6 +105,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let heartX: CGFloat = heartXInitialPos + heartWidthOffset + additionalOffset
             let heart = createHeart(x: heartX, size: heartSize)
             addChild(heart)
+            
+            hearts.append(heart)
         }
         
         spawnTimer = .scheduledTimer(timeInterval: Constants.SpawnSpeed, target: self, selector: #selector(spawnMangoOrBomb), userInfo: nil, repeats: true)
@@ -176,6 +184,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(movingObject)
     }
     
+    private func gameOver() {
+        isGameOver = true
+        
+        self.enumerateChildNodes(withName: "*", using: { node, _ in
+            if let action = node.action(forKey: Constants.MovingKey) {
+                action.speed = 0
+            }
+        })
+        
+        spawnTimer.invalidate()
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let tapLocation = touch.location(in: view)
@@ -210,40 +230,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 nodeB.removeFromParent()
             }
             
-            if nodeA.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
-                // TODO: BELOW
-                // play sound blow up
-                // remove heart
-                // lives -= 1
-                // if lives = 0, gameOver()
-                let explosionParticles = SKEmitterNode(fileNamed: "SmokeParticle.sks")!
-                explosionParticles.position = CGPoint(x: nodeB.position.x, y: nodeB.position.y - nodeB.frame.height/2)
-                explosionParticles.zPosition = 4
-                explosionParticles.particlePositionRange.dx = nodeB.frame.width/1.3
-                
-                let waitAction = SKAction.wait(forDuration: 0.2)
-                let removeExplosion = SKAction.removeFromParent()
-                let explosionSequence = SKAction.sequence([waitAction, removeExplosion])
-                addChild(explosionParticles)
-                explosionParticles.run(explosionSequence)
-                nodeA.removeFromParent()
-            } else if nodeB.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
-                // TODO: BELOW
-                // play sound blow up
-                // remove heart
-                // lives -= 1
-                // if lives = 0, gameOver()
-                let explosionParticles = SKEmitterNode(fileNamed: "SmokeParticle.sks")!
-                explosionParticles.position = CGPoint(x: nodeA.position.x, y: nodeA.position.y - nodeA.frame.height/2)
-                explosionParticles.zPosition = 4
-                explosionParticles.particlePositionRange.dx = nodeA.frame.width/1.3
-                
-                let waitAction = SKAction.wait(forDuration: 0.2)
-                let removeExplosion = SKAction.removeFromParent()
-                let explosionSequence = SKAction.sequence([waitAction, removeExplosion])
-                addChild(explosionParticles)
-                explosionParticles.run(explosionSequence)
-                nodeB.removeFromParent()
+            if nodeA.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue || nodeB.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
+                if nodeA.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
+                    lives -= 1
+                    let removedHeart = hearts.popLast()
+                    removedHeart?.removeFromParent()
+                    // TODO: BELOW
+                    // play sound blow up
+                    // remove heart
+                    // if lives = 0, gameOver()
+                    let explosionParticles = SKEmitterNode(fileNamed: "SmokeParticle.sks")!
+                    explosionParticles.position = CGPoint(x: nodeB.position.x, y: nodeB.position.y - nodeB.frame.height/2)
+                    explosionParticles.zPosition = 4
+                    explosionParticles.particlePositionRange.dx = nodeB.frame.width/1.3
+                    
+                    let waitAction = SKAction.wait(forDuration: 0.2)
+                    let removeExplosion = SKAction.removeFromParent()
+                    let explosionSequence = SKAction.sequence([waitAction, removeExplosion])
+                    addChild(explosionParticles)
+                    explosionParticles.run(explosionSequence)
+                    nodeA.removeFromParent()
+                } else if nodeB.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
+                    lives -= 1
+                    let removedHeart = hearts.popLast()
+                    removedHeart?.removeFromParent()
+                    // TODO: BELOW
+                    // play sound blow up
+                    // remove heart
+                    // if lives = 0, gameOver()
+                    let explosionParticles = SKEmitterNode(fileNamed: "SmokeParticle.sks")!
+                    explosionParticles.position = CGPoint(x: nodeA.position.x, y: nodeA.position.y - nodeA.frame.height/2)
+                    explosionParticles.zPosition = 4
+                    explosionParticles.particlePositionRange.dx = nodeA.frame.width/1.3
+                    
+                    let waitAction = SKAction.wait(forDuration: 0.2)
+                    let removeExplosion = SKAction.removeFromParent()
+                    let explosionSequence = SKAction.sequence([waitAction, removeExplosion])
+                    addChild(explosionParticles)
+                    explosionParticles.run(explosionSequence)
+                    nodeB.removeFromParent()
+                }
+                if(lives == 0) {
+                    gameOver()
+                }
             }
         }
     }
