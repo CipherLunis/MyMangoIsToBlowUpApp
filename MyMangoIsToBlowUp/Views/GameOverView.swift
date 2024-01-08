@@ -11,38 +11,27 @@ struct GameOverView: View {
     let isIPad = UIDevice.current.userInterfaceIdiom == .pad
     
     var score: Int
+    var playAgain: () -> Void
+    var backToStart: () -> Void
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
-//                VStack {
-//                    Spacer()
-//                    RoundedRectangle(cornerRadius: 20.0)
-//                        .fill(Color(#colorLiteral(red: 244/255, green: 228/255, blue: 140/255, alpha: 1.0)))
-//                    Spacer()
-//                }
-//                .frame(width: geo.size.width/2, height: geo.size.height/2)
                 VStack {
                     Text("Game Over!")
                         .foregroundColor(.black)
                         .font(.system(size: isIPad ? 80 : 60))
                         .fontWeight(.bold)
                         .frame(width: geo.size.width/2)
-                    //Divider()
                     Spacer()
-                    HStack {
-                        //Spacer()
-                        Text("Score: \(score)")
-                            .foregroundColor(.black)
-                            .font(.system(size: isIPad ? 50 : 30))
-                            .fontWeight(.semibold)
-                        
-                    }
-                    .frame(width: geo.size.width/2.5)
+                    Text("Score: \(score)")
+                        .foregroundColor(.black)
+                        .font(.system(size: isIPad ? 50 : 30))
+                        .fontWeight(.semibold)
                     Spacer()
                     HStack {
                         Button {
-                           // PLAY AGAIN
+                            playAgain()
                         } label: {
                             Text("Play Again")
                                 .foregroundColor(.black)
@@ -51,8 +40,9 @@ struct GameOverView: View {
                         .frame(width: geo.size.width/5, height: geo.size.height/6)
                         .background(.green)
                         .cornerRadius(20.0)
+                        .shadow(radius: 5.0)
                         Button {
-                            // BACK TO START
+                            backToStart()
                         } label: {
                             Text("Home")
                                 .foregroundColor(.black)
@@ -61,6 +51,7 @@ struct GameOverView: View {
                         .frame(width: geo.size.width/5, height: geo.size.height/6)
                         .background(.green)
                         .cornerRadius(20.0)
+                        .shadow(radius: 5.0)
                     }
                 }
                 .frame(width: geo.size.width/2, height: geo.size.height/1.7)
@@ -68,6 +59,7 @@ struct GameOverView: View {
                 .background {
                     RoundedRectangle(cornerRadius: 20.0)
                         .fill(Color(#colorLiteral(red: 244/255, green: 228/255, blue: 140/255, alpha: 1.0)))
+                        .shadow(radius: 20.0)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -78,6 +70,6 @@ struct GameOverView: View {
 
 struct GameOverView_Previews: PreviewProvider {
     static var previews: some View {
-        GameOverView(score: 0)
+        GameOverView(score: 0, playAgain: {}, backToStart: {})
     }
 }

@@ -20,7 +20,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     private var spawnTimer = Timer()
     
-   
     private var lives = 3
     
     @Published var points = 0
@@ -45,10 +44,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         static let BackgroundScrollSpeed = 50.0
         static let ChompAnimationSpeed = 0.2
-//        static let MangoOrBombMoveSpeed = 7.0
-//        static let SpawnSpeed = 2.0
-        static let MangoOrBombMoveSpeed = 1.0
-        static let SpawnSpeed = 0.2
+        static let MangoOrBombMoveSpeed = 6.0
+        static let SpawnSpeed = 1.0
     }
     
     override init(size: CGSize) {
@@ -73,17 +70,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         physicsWorld.contactDelegate = self
     }
     
-    private func initializeGame() {
-        points = 0
+    func initializeGame() {
+        cleanUpGame()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [self] in
+            points = 0
+            pointsLabel.applyStrokedAttributes(text: "\(points)", strokeWidth: -2, strokeColor: .black, fillColor: .white, fontName: "TimesNewRomanPS-BoldMT", fontSize: 100)
+        }
         lives = 3
         isGameOver = false
+        currentPlayerPosition = .middle
+        
+        scrollBackground(texture: SKTexture(imageNamed: K.Images.MangoFarmBG), z: 0, size: self.size, duration: Constants.BackgroundScrollSpeed)
         
         pointsLabel.position = CGPoint(x: frame.width/8 * 7, y: frame.height/1.3)
         pointsLabel.zPosition = 3
         pointsLabel.applyStrokedAttributes(text: "\(points)", strokeWidth: -2, strokeColor: .black, fillColor: .white, fontName: "TimesNewRomanPS-BoldMT", fontSize: 100)
-        addChild(pointsLabel)
-        
-        scrollBackground(texture: SKTexture(imageNamed: K.Images.MangoFarmBG), z: 0, size: self.size, duration: Constants.BackgroundScrollSpeed)
+        self.addChild(pointsLabel)
         
         player.size = CGSize(width: frame.width/6, height: frame.width/6)
         player.physicsBody = SKPhysicsBody(texture: K.Textures.PlayerTexture, size: player.size)
@@ -101,7 +104,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             let heartSize = CGSize(width: frame.width/16, height: frame.width/16)
             let heartXInitialPos = frame.width/4*3
             let heartWidthOffset = CGFloat(i)*frame.width/16.0
-            let additionalOffset = frame.width/20
+            let additionalOffset = frame.width/18
             let heartX: CGFloat = heartXInitialPos + heartWidthOffset + additionalOffset
             let heart = createHeart(x: heartX, size: heartSize)
             addChild(heart)
@@ -110,6 +113,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
         
         spawnTimer = .scheduledTimer(timeInterval: Constants.SpawnSpeed, target: self, selector: #selector(spawnMangoOrBomb), userInfo: nil, repeats: true)
+    }
+    
+    private func cleanUpGame() {
+        self.removeAllActions()
+        self.removeAllChildren()
     }
     
     private func scrollBackground(texture: SKTexture, z: CGFloat, size: CGSize, duration: Double) {
@@ -135,7 +143,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let mango = SKSpriteNode(texture: K.Textures.MangoTexture)
         mango.size = CGSize(width: frame.width/10, height: frame.width/10)
         mango.position = CGPoint(x: frame.width/8 * 9, y: y)
-        mango.zPosition = 3
+        mango.zPosition = 2
         mango.physicsBody = SKPhysicsBody(texture: K.Textures.MangoTexture, size: mango.size)
         mango.physicsBody?.affectedByGravity = false
         mango.physicsBody?.categoryBitMask = ColliderTypes.mangoCategory.rawValue
@@ -148,7 +156,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let bomb = SKSpriteNode(texture: K.Textures.BombTexture)
         bomb.size = CGSize(width: frame.width/10, height: frame.width/10)
         bomb.position = CGPoint(x: frame.width/8 * 9, y: y)
-        bomb.zPosition = 3
+        bomb.zPosition = 2
         bomb.physicsBody = SKPhysicsBody(texture: K.Textures.BombTexture, size: bomb.size)
         bomb.physicsBody?.affectedByGravity = false
         bomb.physicsBody?.categoryBitMask = ColliderTypes.bombCategory.rawValue
@@ -161,7 +169,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let heart = SKSpriteNode(texture: K.Textures.HeartTexture)
         heart.size = size
         heart.position = CGPoint(x: x, y: frame.height/12)
-        heart.zPosition = 2
+        heart.zPosition = 3
         return heart
     }
     
@@ -219,12 +227,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         if nodeA == player || nodeB == player {
             if nodeA.physicsBody?.categoryBitMask == ColliderTypes.mangoCategory.rawValue {
-                // TODO: play sound my mango or hehehe
+                if Int.random(in: 0...1) == 0 {
+                    SoundManager.sharedInstance.playSound(fileName: K.Sounds.MyMango)
+                } else {
+                    SoundManager.sharedInstance.playSound(fileName: K.Sounds.Laugh)
+                }
                 points += 1
                 pointsLabel.applyStrokedAttributes(text: "\(points)", strokeWidth: -2, strokeColor: .black, fillColor: .white, fontName: "ArialRoundedMTBold", fontSize: 100)
                 nodeA.removeFromParent()
             } else if nodeB.physicsBody?.categoryBitMask == ColliderTypes.mangoCategory.rawValue {
-                // TODO: play sound my mango or hehehe
+                
+                if Int.random(in: 0...1) == 0 {
+                    SoundManager.sharedInstance.playSound(fileName: K.Sounds.MyMango)
+                } else {
+                    SoundManager.sharedInstance.playSound(fileName: K.Sounds.Laugh)
+                }
                 points += 1
                 pointsLabel.applyStrokedAttributes(text: "\(points)", strokeWidth: -2, strokeColor: .black, fillColor: .white, fontName: "ArialRoundedMTBold", fontSize: 100)
                 nodeB.removeFromParent()
@@ -233,12 +250,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             if nodeA.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue || nodeB.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
                 if nodeA.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
                     lives -= 1
+                    SoundManager.sharedInstance.playSound(fileName: K.Sounds.BlowUp)
+                    
                     let removedHeart = hearts.popLast()
                     removedHeart?.removeFromParent()
-                    // TODO: BELOW
-                    // play sound blow up
-                    // remove heart
-                    // if lives = 0, gameOver()
+                    
                     let explosionParticles = SKEmitterNode(fileNamed: "SmokeParticle.sks")!
                     explosionParticles.position = CGPoint(x: nodeB.position.x, y: nodeB.position.y - nodeB.frame.height/2)
                     explosionParticles.zPosition = 4
@@ -252,12 +268,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                     nodeA.removeFromParent()
                 } else if nodeB.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
                     lives -= 1
+                    SoundManager.sharedInstance.playSound(fileName: K.Sounds.BlowUp)
+                    
                     let removedHeart = hearts.popLast()
                     removedHeart?.removeFromParent()
-                    // TODO: BELOW
-                    // play sound blow up
-                    // remove heart
-                    // if lives = 0, gameOver()
+                    
                     let explosionParticles = SKEmitterNode(fileNamed: "SmokeParticle.sks")!
                     explosionParticles.position = CGPoint(x: nodeA.position.x, y: nodeA.position.y - nodeA.frame.height/2)
                     explosionParticles.zPosition = 4
