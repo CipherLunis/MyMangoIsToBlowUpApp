@@ -72,6 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     func initializeGame() {
         cleanUpGame()
+        SoundManager.sharedInstance.playSound(fileName: K.Sounds.FullQuote)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [self] in
             points = 0
@@ -80,8 +81,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         lives = 3
         isGameOver = false
         currentPlayerPosition = .middle
+        hearts = []
         
-        scrollBackground(texture: SKTexture(imageNamed: K.Images.MangoFarmBG), z: 0, size: self.size, duration: Constants.BackgroundScrollSpeed)
+        scrollBackground(texture: SKTexture(imageNamed: K.Images.MangoFarmBG), size: self.size, duration: Constants.BackgroundScrollSpeed)
         
         pointsLabel.position = CGPoint(x: frame.width/8 * 7, y: frame.height/1.3)
         pointsLabel.zPosition = 3
@@ -120,7 +122,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         self.removeAllChildren()
     }
     
-    private func scrollBackground(texture: SKTexture, z: CGFloat, size: CGSize, duration: Double) {
+    private func scrollBackground(texture: SKTexture, size: CGSize, duration: Double) {
         for i in 0...1 {
             let backgroundNode = SKSpriteNode()
             backgroundNode.anchorPoint = .zero
