@@ -14,27 +14,44 @@ class SoundManager: NSObject, AVAudioPlayerDelegate {
     
     private override init() {}
     
-    var audioPlayers =  [URL:AVAudioPlayer]()
+    var players =  [URL:AVAudioPlayer]()
+    var duplicatePlayers = [AVAudioPlayer]()
     
     public func playSound(fileName: String) {
         guard let url = Bundle.main.url(forResource: fileName, withExtension: K.FileTypes.mp3) else {
             return
         }
         
-        if let player = audioPlayers[url] { // player exists for sound
+        if let player = players[url] { // player exists for the sound
             if(player.isPlaying == false) {
                 player.prepareToPlay()
                 player.play()
+            } else {
+                let duplicatePlayer = try! AVAudioPlayer(contentsOf: url)
+                
+                // assign delegate for duplicatePlayer so delegate can remove the duplicate once it's stopped playing
+                duplicatePlayer.delegate = self
+                
+                // add duplicate to array so it doesn't get removed from memory before finishing
+                duplicatePlayers.append(duplicatePlayer)
+                
+                duplicatePlayer.prepareToPlay()
+                
+                DispatchQueue.global().async {
+                    duplicatePlayer.play()
+                }
             }
-        } else { // player does not exist for sound
+        } else { // player does not exist for that sound
             do {
                 let player = try AVAudioPlayer(contentsOf: url)
-                audioPlayers[url] = player
+                players[url] = player
                 player.prepareToPlay()
+                
                 player.play()
-            } catch {
-                print("Could not play sound!")
+            } catch let error {
+                print(error.localizedDescription)
             }
         }
     }
+    
 }

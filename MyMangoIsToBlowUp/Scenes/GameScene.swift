@@ -25,6 +25,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     @Published var points = 0
     @Published var isGameOver = false
     
+    let soundQueue = DispatchQueue(label: "com.CipherLunis.MyMangoIsToBlowUp.soundQueue")
+    
     private enum PlayerPositions: Int {
         case bottom = 0
         case middle = 1
@@ -44,7 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         static let BackgroundScrollSpeed = 50.0
         static let ChompAnimationSpeed = 0.2
-        static let MangoOrBombMoveSpeed = 6.0
+        static let MangoOrBombMoveSpeed = 5.0
         static let SpawnSpeed = 1.0
     }
     
@@ -72,7 +74,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     func initializeGame() {
         cleanUpGame()
-        SoundManager.sharedInstance.playSound(fileName: K.Sounds.FullQuote)
+        soundQueue.async {
+            SoundManager.sharedInstance.playSound(fileName: K.Sounds.FullQuote)
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [self] in
             points = 0
@@ -185,7 +189,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         default:
             yPosition = frame.height/2 - frame.height/3.5
         }
-        let movingObject = Int.random(in: 1...3) == 3 ? createBomb(y: yPosition) : createMango(y: yPosition)
+        let movingObject = Int.random(in: 1...2) == 2 ? createBomb(y: yPosition) : createMango(y: yPosition)
         let moveRightToLeft = SKAction.moveTo(x: -movingObject.size.width, duration: Constants.MangoOrBombMoveSpeed)
         let removeObject = SKAction.removeFromParent()
         let moveAndRemoveSequence = SKAction.sequence([moveRightToLeft, removeObject])
@@ -230,9 +234,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if nodeA == player || nodeB == player {
             if nodeA.physicsBody?.categoryBitMask == ColliderTypes.mangoCategory.rawValue {
                 if Int.random(in: 0...1) == 0 {
-                    SoundManager.sharedInstance.playSound(fileName: K.Sounds.MyMango)
+                    soundQueue.async {
+                        SoundManager.sharedInstance.playSound(fileName: K.Sounds.MyMango)
+                    }
                 } else {
-                    SoundManager.sharedInstance.playSound(fileName: K.Sounds.Laugh)
+                    soundQueue.async {
+                        SoundManager.sharedInstance.playSound(fileName: K.Sounds.Laugh)
+                    }
                 }
                 points += 1
                 pointsLabel.applyStrokedAttributes(text: "\(points)", strokeWidth: -2, strokeColor: .black, fillColor: .white, fontName: "ArialRoundedMTBold", fontSize: 100)
@@ -240,9 +248,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             } else if nodeB.physicsBody?.categoryBitMask == ColliderTypes.mangoCategory.rawValue {
                 
                 if Int.random(in: 0...1) == 0 {
-                    SoundManager.sharedInstance.playSound(fileName: K.Sounds.MyMango)
+                    soundQueue.async {
+                        SoundManager.sharedInstance.playSound(fileName: K.Sounds.MyMango)
+                    }
                 } else {
-                    SoundManager.sharedInstance.playSound(fileName: K.Sounds.Laugh)
+                    soundQueue.async {
+                        SoundManager.sharedInstance.playSound(fileName: K.Sounds.Laugh)
+                    }
                 }
                 points += 1
                 pointsLabel.applyStrokedAttributes(text: "\(points)", strokeWidth: -2, strokeColor: .black, fillColor: .white, fontName: "ArialRoundedMTBold", fontSize: 100)
@@ -252,7 +264,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             if nodeA.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue || nodeB.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
                 if nodeA.physicsBody?.categoryBitMask == ColliderTypes.bombCategory.rawValue {
                     lives -= 1
-                    SoundManager.sharedInstance.playSound(fileName: K.Sounds.BlowUp)
+                    soundQueue.async {
+                        SoundManager.sharedInstance.playSound(fileName: K.Sounds.BlowUp)
+                    }
                     
                     let removedHeart = hearts.popLast()
                     removedHeart?.removeFromParent()
