@@ -23,6 +23,10 @@
 		F86B52252B4BAE7800BC325E /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86B52242B4BAE7800BC325E /* GameOverView.swift */; };
 		F86B52272B4BC1E600BC325E /* StartScreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86B52262B4BC1E600BC325E /* StartScreenButton.swift */; };
 		F86B52292B4BC2E500BC325E /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86B52282B4BC2E500BC325E /* SoundManager.swift */; };
+		F8A26F782C50AEBB0001F58B /* Screenshot4.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A26F742C50AEBB0001F58B /* Screenshot4.png */; };
+		F8A26F792C50AEBB0001F58B /* Screenshot1.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A26F752C50AEBB0001F58B /* Screenshot1.png */; };
+		F8A26F7A2C50AEBB0001F58B /* Screenshot2.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A26F762C50AEBB0001F58B /* Screenshot2.png */; };
+		F8A26F7D2C50AF260001F58B /* Screenshot3.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A26F7C2C50AF260001F58B /* Screenshot3.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +47,10 @@
 		F86B52242B4BAE7800BC325E /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		F86B52262B4BC1E600BC325E /* StartScreenButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenButton.swift; sourceTree = "<group>"; };
 		F86B52282B4BC2E500BC325E /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		F8A26F742C50AEBB0001F58B /* Screenshot4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot4.png; sourceTree = "<group>"; };
+		F8A26F752C50AEBB0001F58B /* Screenshot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot1.png; sourceTree = "<group>"; };
+		F8A26F762C50AEBB0001F58B /* Screenshot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot2.png; sourceTree = "<group>"; };
+		F8A26F7C2C50AF260001F58B /* Screenshot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot3.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +83,7 @@
 		F82F096B2B4A45C600F2115B /* MyMangoIsToBlowUp */ = {
 			isa = PBXGroup;
 			children = (
+				F8A26F732C50AEAE0001F58B /* Images */,
 				F82F09912B4A8ED700F2115B /* Resources */,
 				F82F098C2B4A6E1600F2115B /* Supporting */,
 				F82F09892B4A681600F2115B /* Scenes */,
@@ -143,6 +152,17 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		F8A26F732C50AEAE0001F58B /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F8A26F752C50AEBB0001F58B /* Screenshot1.png */,
+				F8A26F762C50AEBB0001F58B /* Screenshot2.png */,
+				F8A26F7C2C50AF260001F58B /* Screenshot3.png */,
+				F8A26F742C50AEBB0001F58B /* Screenshot4.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -201,11 +221,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8A26F7D2C50AF260001F58B /* Screenshot3.png in Resources */,
+				F8A26F782C50AEBB0001F58B /* Screenshot4.png in Resources */,
+				F8A26F792C50AEBB0001F58B /* Screenshot1.png in Resources */,
 				F83935152B4D557B006F9193 /* My Mango is to Blow Up and Then Act Like I Don't Know Nobody.mp3 in Resources */,
 				F82F09812B4A5B7300F2115B /* Blow Up.mp3 in Resources */,
 				F82F09822B4A5B7300F2115B /* HEHEHE.mp3 in Resources */,
 				F82F09932B4A8F0100F2115B /* SmokeParticle.sks in Resources */,
 				F82F09742B4A45C700F2115B /* Preview Assets.xcassets in Resources */,
+				F8A26F7A2C50AEBB0001F58B /* Screenshot2.png in Resources */,
 				F82F09712B4A45C700F2115B /* Assets.xcassets in Resources */,
 				F82F097F2B4A5B7300F2115B /* My Mango.mp3 in Resources */,
 			);
